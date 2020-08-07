@@ -63,5 +63,15 @@ def get(i):
 
     return out, errors
 
+def convert_errors():
+    with open("errors.json", "r") as f:
+        d = json.load(f)
+    with open("errors.txt", "w") as f:
+        for k in d:
+            f.write(str(k) + " ")
+            for e in d[k]:
+                f.write(e + " ")
+            f.write("\n")
+
 if __name__ == "__main__":
     scrape()

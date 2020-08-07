@@ -37,7 +37,7 @@ def get(i):
     out["title"] = title.text.strip()
 
     authors = soup.find("h2", class_="bibtop citation_author")
-    out["author_str"] = authors.text.split(", ")
+    out["author_str"] = authors.text.split(", ") # doesn't do "Jr" well
     out["author_id"] = [a['href'][8:] for a in authors.find_all("a")]
     if len(out["author_str"]) != len(out["author_id"]):
         errors.append("author_len")

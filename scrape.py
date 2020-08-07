@@ -11,7 +11,7 @@ def scrape(skip=False):
     for i in range(MIN_ID, MAX_ID):
         print(i, end=" ")
         try:
-            d, e = get_text(i)
+            d, e = get(i)
             outfile.write(json.dumps(d) + "\n")
             errors[i] = e
             print("y" if e else "n")

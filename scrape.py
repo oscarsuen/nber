@@ -14,7 +14,7 @@ def scrape(skip=False):
             d, e = get(i)
             outfile.write(json.dumps(d) + "\n")
             errors[i] = e
-            print("y" if e else "n")
+            print("n" if e else "y")
         except RuntimeError:
             errors[i] = ["bad_request"]
             print("n")
@@ -44,7 +44,7 @@ def get(i):
 
     bibtop = soup.find("p", class_="bibtop")
     lines = bibtop.find_all("b")
-    if lines[0].string[23:] != str(i):
+    if lines[0].text.split()[4] != str(i):
         errors.append("id_mismatch")
     dates = lines[1].text
     out["issue_date"] = dates.split(", ")[0][10:] if ',' in dates else dates[10:]
@@ -55,8 +55,6 @@ def get(i):
         errors.append("revisedate_fail")
     if len(lines) > 2:
         out["programs"] = [a["href"][34:-5] for a in lines[2].find_all("a")]
-        if any(len(s) != 2 for s in out["programs"]):
-            errors.append("programs_fail")
     else:
         out["programs"] = []
         errors.append("programs_empty")

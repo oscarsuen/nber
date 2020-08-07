@@ -8,7 +8,7 @@ MIN_ID, MAX_ID = 1, 27633
 def scrape(skip=False):
     outfile = open("nber-data.json", "w")
     errors = {}
-    for i in range(MIN_ID, MAX_ID):
+    for i in range(MIN_ID, MAX_ID+1):
         print(i, end=" ")
         try:
             d, e = get(i)
